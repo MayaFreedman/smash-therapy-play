@@ -8,35 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Therapeutic color palette */
+    --background: 335 25% 95%;
+    --foreground: 240 15% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 330 20% 97%;
+    --card-foreground: 240 15% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 330 20% 97%;
+    --popover-foreground: 240 15% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Calming primary colors */
+    --primary: 200 70% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 200 70% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Soft secondary tones */
+    --secondary: 320 40% 85%;
+    --secondary-foreground: 240 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted therapeutic tones */
+    --muted: 330 15% 90%;
+    --muted-foreground: 240 10% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Gentle accent colors */
+    --accent: 160 50% 70%;
+    --accent-foreground: 240 15% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Soft destructive for breaking effects */
+    --destructive: 15 80% 70%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Therapeutic room colors */
+    --living-room: 45 60% 85%;
+    --office-room: 220 30% 80%;
+    --kitchen-room: 120 40% 85%;
 
-    --radius: 0.5rem;
+    /* Gentle borders and inputs */
+    --border: 330 20% 85%;
+    --input: 330 20% 90%;
+    --ring: 200 70% 60%;
+
+    /* Gradients for depth */
+    --gradient-calm: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    --gradient-room: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    --gradient-object: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+
+    /* Shadows for depth */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-object: 0 8px 25px -8px hsl(var(--foreground) / 0.1);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.3);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
