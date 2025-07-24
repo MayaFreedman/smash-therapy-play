@@ -49,7 +49,7 @@ export const RageRoomGame = () => {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12 animate-float-in">
                 <h1 className="text-6xl font-bold text-foreground mb-4 bg-gradient-calm bg-clip-text text-transparent">
-                  Zen Break
+                  Rage Room
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   Find peace through therapeutic destruction. Choose your sanctuary and let the stress melt away.
