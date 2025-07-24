@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { InteractiveObject } from "../InteractiveObject";
-import livingRoomBg from "@/assets/living-room-bg.jpg";
 
 interface LivingRoomProps {
   onBack: () => void;
@@ -18,14 +17,9 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${livingRoomBg})` }}
-      />
-      {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-room/80" />
+    <div className="min-h-screen bg-living-room relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-room" />
       
       {/* Decorative plants */}
       <div className="absolute bottom-0 left-10 text-6xl opacity-60 animate-gentle-pulse">🌿</div>

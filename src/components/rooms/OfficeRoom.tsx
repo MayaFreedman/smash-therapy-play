@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { InteractiveObject } from "../InteractiveObject";
-import officeBg from "@/assets/office-bg.jpg";
 
 interface OfficeRoomProps {
   onBack: () => void;
@@ -18,14 +17,9 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${officeBg})` }}
-      />
-      {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-room/80" />
+    <div className="min-h-screen bg-office-room relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-room" />
       
       {/* Office ambiance */}
       <div className="absolute top-10 left-20 text-4xl opacity-50 animate-gentle-pulse">📚</div>
