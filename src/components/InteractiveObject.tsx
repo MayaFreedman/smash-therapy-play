@@ -42,11 +42,10 @@ export const InteractiveObject = ({
       <div
         onClick={handleClick}
         className={cn(
-          "relative w-24 h-24 bg-gradient-object rounded-2xl shadow-object cursor-pointer transition-all duration-300 flex items-center justify-center border-2 border-border/30",
-          !isBroken && !isBreaking && "hover:shadow-glow hover:scale-105 hover:border-primary/40",
+          "relative w-24 h-24 cursor-pointer transition-all duration-300 flex items-center justify-center",
+          !isBroken && !isBreaking && "hover:scale-105",
           isBreaking && "animate-shatter",
-          isBroken && "opacity-30 cursor-not-allowed",
-          "group-hover:bg-gradient-to-br group-hover:from-primary/10 group-hover:to-accent/10"
+          isBroken && "opacity-30 cursor-not-allowed"
         )}
       >
         <span 
