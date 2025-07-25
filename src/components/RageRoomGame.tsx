@@ -17,7 +17,7 @@ export const RageRoomGame = () => {
       name: "Serene Bedroom",
       description: "Soft cushions and gentle lighting await",
       color: "bg-living-room",
-      icon: "🛋️"
+      icon: "🛏️"
     },
     {
       id: "office" as const,
