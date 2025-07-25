@@ -33,7 +33,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-float-in">
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Cozy Living Room
+              Serene Bedroom
             </h2>
             <p className="text-muted-foreground">
               Click on objects to experience gentle, satisfying interactions
@@ -41,89 +41,89 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {/* Vase */}
+            {/* Pillow */}
             <InteractiveObject
-              id="vase"
-              emoji="🏺"
-              name="Ceramic Vase"
-              isBroken={brokenObjects.has("vase")}
-              onBreak={() => handleObjectBreak("vase")}
+              id="pillow"
+              emoji="🛏️"
+              name="Fluffy Pillow"
+              isBroken={brokenObjects.has("pillow")}
+              onBreak={() => handleObjectBreak("pillow")}
               className="animate-float-in"
             />
 
-            {/* Picture Frame */}
+            {/* Alarm Clock */}
             <InteractiveObject
-              id="frame"
-              emoji="🖼️"
-              name="Picture Frame"
-              isBroken={brokenObjects.has("frame")}
-              onBreak={() => handleObjectBreak("frame")}
+              id="alarm"
+              emoji="⏰"
+              name="Alarm Clock"
+              isBroken={brokenObjects.has("alarm")}
+              onBreak={() => handleObjectBreak("alarm")}
               className="animate-float-in"
               style={{animationDelay: '0.1s'}}
             />
 
-            {/* Lamp */}
+            {/* Bedside Lamp */}
             <InteractiveObject
-              id="lamp"
-              emoji="💡"
-              name="Table Lamp"
-              isBroken={brokenObjects.has("lamp")}
-              onBreak={() => handleObjectBreak("lamp")}
+              id="bedlamp"
+              emoji="🛋️"
+              name="Bedside Lamp"
+              isBroken={brokenObjects.has("bedlamp")}
+              onBreak={() => handleObjectBreak("bedlamp")}
               className="animate-float-in"
               style={{animationDelay: '0.2s'}}
-            />
-
-            {/* Wine Glass */}
-            <InteractiveObject
-              id="wine"
-              emoji="🍷"
-              name="Wine Glass"
-              isBroken={brokenObjects.has("wine")}
-              onBreak={() => handleObjectBreak("wine")}
-              className="animate-float-in"
-              style={{animationDelay: '0.3s'}}
             />
 
             {/* Mirror */}
             <InteractiveObject
               id="mirror"
               emoji="🪞"
-              name="Decorative Mirror"
+              name="Dresser Mirror"
               isBroken={brokenObjects.has("mirror")}
               onBreak={() => handleObjectBreak("mirror")}
+              className="animate-float-in"
+              style={{animationDelay: '0.3s'}}
+            />
+
+            {/* Jewelry Box */}
+            <InteractiveObject
+              id="jewelry"
+              emoji="💎"
+              name="Jewelry Box"
+              isBroken={brokenObjects.has("jewelry")}
+              onBreak={() => handleObjectBreak("jewelry")}
               className="animate-float-in"
               style={{animationDelay: '0.4s'}}
             />
 
-            {/* Clock */}
+            {/* Water Glass */}
             <InteractiveObject
-              id="clock"
-              emoji="🕐"
-              name="Wall Clock"
-              isBroken={brokenObjects.has("clock")}
-              onBreak={() => handleObjectBreak("clock")}
+              id="water"
+              emoji="🥤"
+              name="Water Glass"
+              isBroken={brokenObjects.has("water")}
+              onBreak={() => handleObjectBreak("water")}
               className="animate-float-in"
               style={{animationDelay: '0.5s'}}
             />
 
-            {/* Candle */}
+            {/* Photo Frame */}
             <InteractiveObject
-              id="candle"
-              emoji="🕯️"
-              name="Scented Candle"
-              isBroken={brokenObjects.has("candle")}
-              onBreak={() => handleObjectBreak("candle")}
+              id="photo"
+              emoji="🖼️"
+              name="Family Photo"
+              isBroken={brokenObjects.has("photo")}
+              onBreak={() => handleObjectBreak("photo")}
               className="animate-float-in"
               style={{animationDelay: '0.6s'}}
             />
 
-            {/* Snow Globe */}
+            {/* Perfume Bottle */}
             <InteractiveObject
-              id="globe"
-              emoji="🔮"
-              name="Snow Globe"
-              isBroken={brokenObjects.has("globe")}
-              onBreak={() => handleObjectBreak("globe")}
+              id="perfume"
+              emoji="🧴"
+              name="Perfume Bottle"
+              isBroken={brokenObjects.has("perfume")}
+              onBreak={() => handleObjectBreak("perfume")}
               className="animate-float-in"
               style={{animationDelay: '0.7s'}}
             />
@@ -138,7 +138,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
                 onClick={() => setBrokenObjects(new Set())}
                 className="px-6 py-2 bg-gradient-calm text-white rounded-full hover:shadow-glow transition-all duration-300"
               >
-                Reset Room
+                Reset Bedroom
               </button>
             </div>
           )}
