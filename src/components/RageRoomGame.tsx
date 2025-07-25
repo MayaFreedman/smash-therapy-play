@@ -14,7 +14,7 @@ export const RageRoomGame = () => {
   const rooms = [
     {
       id: "living" as const,
-      name: "Cozy Living Room",
+      name: "Serene Bedroom",
       description: "Soft cushions and gentle lighting await",
       color: "bg-living-room",
       icon: "🛋️"
