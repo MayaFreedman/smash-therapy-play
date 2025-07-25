@@ -6,14 +6,20 @@ interface KitchenRoomProps {
 }
 
 export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
-  const [brokenObjects, setBrokenObjects] = useState<Set<string>>(new Set());
+  const [objectCracks, setObjectCracks] = useState<Record<string, number>>({});
 
-  const handleObjectBreak = (id: string) => {
-    setBrokenObjects(prev => new Set([...prev, id]));
-    // Play breaking sound
-    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEfCCmKzfPVhC8HHm7C7+OZSA0PT6Xf8YJTBg9Mn+TzmGEhCSpP');
-    audio.volume = 0.1;
-    audio.play().catch(() => {});
+  const handleObjectCrack = (id: string) => {
+    setObjectCracks(prev => {
+      const currentLevel = prev[id] || 0;
+      const newLevel = currentLevel + 1;
+      
+      // Play breaking sound
+      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEfCCmKzfPVhC8HHm7C7+OZSA0PT6Xf8YJTBg9Mn+TzmGEhCSpP');
+      audio.volume = 0.1;
+      audio.play().catch(() => {});
+      
+      return { ...prev, [id]: newLevel };
+    });
   };
 
   return (
@@ -36,7 +42,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               Warm Kitchen
             </h2>
             <p className="text-muted-foreground">
-              Find satisfaction in the heart of the home
+              Click objects 3 times to experience progressive cracking and breaking
             </p>
           </div>
 
@@ -46,8 +52,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="plate"
               emoji="🍽️"
               name="Dinner Plate"
-              isBroken={brokenObjects.has("plate")}
-              onBreak={() => handleObjectBreak("plate")}
+              crackLevel={objectCracks["plate"] || 0}
+              onCrack={() => handleObjectCrack("plate")}
               className="animate-float-in"
             />
 
@@ -56,8 +62,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="teacup"
               emoji="🫖"
               name="Tea Cup"
-              isBroken={brokenObjects.has("teacup")}
-              onBreak={() => handleObjectBreak("teacup")}
+              crackLevel={objectCracks["teacup"] || 0}
+              onCrack={() => handleObjectCrack("teacup")}
               className="animate-float-in"
               style={{animationDelay: '0.1s'}}
             />
@@ -67,8 +73,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="bowl"
               emoji="🥣"
               name="Glass Bowl"
-              isBroken={brokenObjects.has("bowl")}
-              onBreak={() => handleObjectBreak("bowl")}
+              crackLevel={objectCracks["bowl"] || 0}
+              onCrack={() => handleObjectCrack("bowl")}
               className="animate-float-in"
               style={{animationDelay: '0.2s'}}
             />
@@ -78,8 +84,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="bottle"
               emoji="🍾"
               name="Wine Bottle"
-              isBroken={brokenObjects.has("bottle")}
-              onBreak={() => handleObjectBreak("bottle")}
+              crackLevel={objectCracks["bottle"] || 0}
+              onCrack={() => handleObjectCrack("bottle")}
               className="animate-float-in"
               style={{animationDelay: '0.3s'}}
             />
@@ -89,8 +95,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="jar"
               emoji="🍪"
               name="Cookie Jar"
-              isBroken={brokenObjects.has("jar")}
-              onBreak={() => handleObjectBreak("jar")}
+              crackLevel={objectCracks["jar"] || 0}
+              onCrack={() => handleObjectCrack("jar")}
               className="animate-float-in"
               style={{animationDelay: '0.4s'}}
             />
@@ -100,8 +106,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="blender"
               emoji="🥤"
               name="Glass Blender"
-              isBroken={brokenObjects.has("blender")}
-              onBreak={() => handleObjectBreak("blender")}
+              crackLevel={objectCracks["blender"] || 0}
+              onCrack={() => handleObjectCrack("blender")}
               className="animate-float-in"
               style={{animationDelay: '0.5s'}}
             />
@@ -111,8 +117,8 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="salt"
               emoji="🧂"
               name="Salt Shaker"
-              isBroken={brokenObjects.has("salt")}
-              onBreak={() => handleObjectBreak("salt")}
+              crackLevel={objectCracks["salt"] || 0}
+              onCrack={() => handleObjectCrack("salt")}
               className="animate-float-in"
               style={{animationDelay: '0.6s'}}
             />
@@ -122,20 +128,20 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               id="cutting-board"
               emoji="🍕"
               name="Wooden Board"
-              isBroken={brokenObjects.has("cutting-board")}
-              onBreak={() => handleObjectBreak("cutting-board")}
+              crackLevel={objectCracks["cutting-board"] || 0}
+              onCrack={() => handleObjectCrack("cutting-board")}
               className="animate-float-in"
               style={{animationDelay: '0.7s'}}
             />
           </div>
 
-          {brokenObjects.size > 0 && (
+          {Object.values(objectCracks).some(level => level > 0) && (
             <div className="text-center mt-12 animate-float-in">
               <p className="text-muted-foreground mb-4">
-                Items broken: {brokenObjects.size}/8
+                Items damaged: {Object.values(objectCracks).filter(level => level > 0).length}/8
               </p>
               <button
-                onClick={() => setBrokenObjects(new Set())}
+                onClick={() => setObjectCracks({})}
                 className="px-6 py-2 bg-gradient-calm text-white rounded-full hover:shadow-glow transition-all duration-300"
               >
                 Reset Kitchen

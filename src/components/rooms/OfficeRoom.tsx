@@ -6,14 +6,20 @@ interface OfficeRoomProps {
 }
 
 export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
-  const [brokenObjects, setBrokenObjects] = useState<Set<string>>(new Set());
+  const [objectCracks, setObjectCracks] = useState<Record<string, number>>({});
 
-  const handleObjectBreak = (id: string) => {
-    setBrokenObjects(prev => new Set([...prev, id]));
-    // Play breaking sound
-    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEfCCmKzfPVhC8HHm7C7+OZSA0PT6Xf8YJTBg9Mn+TzmGEhCSpP');
-    audio.volume = 0.1;
-    audio.play().catch(() => {});
+  const handleObjectCrack = (id: string) => {
+    setObjectCracks(prev => {
+      const currentLevel = prev[id] || 0;
+      const newLevel = currentLevel + 1;
+      
+      // Play breaking sound
+      const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEfCCmKzfPVhC8HHm7C7+OZSA0PT6Xf8YJTBg9Mn+TzmGEhCSpP');
+      audio.volume = 0.1;
+      audio.play().catch(() => {});
+      
+      return { ...prev, [id]: newLevel };
+    });
   };
 
   return (
@@ -36,7 +42,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               Peaceful Office
             </h2>
             <p className="text-muted-foreground">
-              Release work stress in a calming environment
+              Click objects 3 times to experience progressive cracking and breaking
             </p>
           </div>
 
@@ -46,8 +52,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="monitor"
               emoji="🖥️"
               name="Computer Monitor"
-              isBroken={brokenObjects.has("monitor")}
-              onBreak={() => handleObjectBreak("monitor")}
+              crackLevel={objectCracks["monitor"] || 0}
+              onCrack={() => handleObjectCrack("monitor")}
               className="animate-float-in"
             />
 
@@ -56,8 +62,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="mug"
               emoji="☕"
               name="Coffee Mug"
-              isBroken={brokenObjects.has("mug")}
-              onBreak={() => handleObjectBreak("mug")}
+              crackLevel={objectCracks["mug"] || 0}
+              onCrack={() => handleObjectCrack("mug")}
               className="animate-float-in"
               style={{animationDelay: '0.1s'}}
             />
@@ -67,8 +73,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="desk-lamp"
               emoji="🔦"
               name="Desk Lamp"
-              isBroken={brokenObjects.has("desk-lamp")}
-              onBreak={() => handleObjectBreak("desk-lamp")}
+              crackLevel={objectCracks["desk-lamp"] || 0}
+              onCrack={() => handleObjectCrack("desk-lamp")}
               className="animate-float-in"
               style={{animationDelay: '0.2s'}}
             />
@@ -78,8 +84,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="phone"
               emoji="📱"
               name="Smartphone"
-              isBroken={brokenObjects.has("phone")}
-              onBreak={() => handleObjectBreak("phone")}
+              crackLevel={objectCracks["phone"] || 0}
+              onCrack={() => handleObjectCrack("phone")}
               className="animate-float-in"
               style={{animationDelay: '0.3s'}}
             />
@@ -89,8 +95,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="trophy"
               emoji="🏆"
               name="Achievement Trophy"
-              isBroken={brokenObjects.has("trophy")}
-              onBreak={() => handleObjectBreak("trophy")}
+              crackLevel={objectCracks["trophy"] || 0}
+              onCrack={() => handleObjectCrack("trophy")}
               className="animate-float-in"
               style={{animationDelay: '0.4s'}}
             />
@@ -100,8 +106,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="calculator"
               emoji="🧮"
               name="Calculator"
-              isBroken={brokenObjects.has("calculator")}
-              onBreak={() => handleObjectBreak("calculator")}
+              crackLevel={objectCracks["calculator"] || 0}
+              onCrack={() => handleObjectCrack("calculator")}
               className="animate-float-in"
               style={{animationDelay: '0.5s'}}
             />
@@ -111,8 +117,8 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="printer"
               emoji="🖨️"
               name="Office Printer"
-              isBroken={brokenObjects.has("printer")}
-              onBreak={() => handleObjectBreak("printer")}
+              crackLevel={objectCracks["printer"] || 0}
+              onCrack={() => handleObjectCrack("printer")}
               className="animate-float-in"
               style={{animationDelay: '0.6s'}}
             />
@@ -122,20 +128,20 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               id="stress-ball"
               emoji="⚾"
               name="Stress Ball"
-              isBroken={brokenObjects.has("stress-ball")}
-              onBreak={() => handleObjectBreak("stress-ball")}
+              crackLevel={objectCracks["stress-ball"] || 0}
+              onCrack={() => handleObjectCrack("stress-ball")}
               className="animate-float-in"
               style={{animationDelay: '0.7s'}}
             />
           </div>
 
-          {brokenObjects.size > 0 && (
+          {Object.values(objectCracks).some(level => level > 0) && (
             <div className="text-center mt-12 animate-float-in">
               <p className="text-muted-foreground mb-4">
-                Stress released: {brokenObjects.size}/8
+                Stress released: {Object.values(objectCracks).filter(level => level > 0).length}/8
               </p>
               <button
-                onClick={() => setBrokenObjects(new Set())}
+                onClick={() => setObjectCracks({})}
                 className="px-6 py-2 bg-gradient-calm text-white rounded-full hover:shadow-glow transition-all duration-300"
               >
                 Reset Office

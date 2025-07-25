@@ -5,8 +5,8 @@ interface InteractiveObjectProps {
   id: string;
   emoji: string;
   name: string;
-  isBroken: boolean;
-  onBreak: () => void;
+  crackLevel: number; // 0 = intact, 1-2 = cracked, 3 = broken
+  onCrack: () => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -15,18 +15,21 @@ export const InteractiveObject = ({
   id,
   emoji,
   name,
-  isBroken,
-  onBreak,
+  crackLevel,
+  onCrack,
   className,
   style
 }: InteractiveObjectProps) => {
   const [isBreaking, setIsBreaking] = useState(false);
+  
+  const isBroken = crackLevel >= 3;
+  const isCracked = crackLevel > 0 && crackLevel < 3;
 
   const handleClick = () => {
     if (isBroken || isBreaking) return;
     
     setIsBreaking(true);
-    onBreak();
+    onCrack();
     
     // Reset breaking state after animation
     setTimeout(() => {
@@ -52,11 +55,31 @@ export const InteractiveObject = ({
           className={cn(
             "text-4xl transition-all duration-300",
             isBreaking && "animate-break-apart",
-            !isBroken && !isBreaking && "group-hover:scale-110"
+            !isBroken && !isBreaking && "group-hover:scale-110",
+            isCracked && "opacity-80"
           )}
         >
           {isBroken ? "💥" : emoji}
         </span>
+        
+        {/* Crack overlay effects */}
+        {isCracked && (
+          <>
+            {crackLevel >= 1 && (
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-2 left-3 w-8 h-0.5 bg-muted-foreground/40 transform rotate-45 origin-left" />
+                <div className="absolute bottom-3 right-2 w-6 h-0.5 bg-muted-foreground/30 transform -rotate-12 origin-right" />
+              </div>
+            )}
+            {crackLevel >= 2 && (
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/2 left-1 w-10 h-0.5 bg-muted-foreground/50 transform -rotate-45 origin-left" />
+                <div className="absolute top-4 right-4 w-4 h-0.5 bg-muted-foreground/40 transform rotate-12 origin-right" />
+                <div className="absolute bottom-2 left-1/2 w-5 h-0.5 bg-muted-foreground/35 transform rotate-75 origin-center" />
+              </div>
+            )}
+          </>
+        )}
         
         {/* Enhanced particle effects */}
         {isBreaking && (
