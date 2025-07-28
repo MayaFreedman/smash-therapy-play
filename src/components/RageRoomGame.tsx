@@ -15,29 +15,29 @@ export const RageRoomGame = () => {
   const rooms = [
     {
       id: "living" as const,
-      name: "Serene Bedroom",
-      description: "Soft cushions and gentle lighting await",
+      name: "Demolition Den",
+      description: "Heavy furniture ready for destruction",
       color: "bg-living-room",
       icon: "🛏️"
     },
     {
       id: "office" as const,
-      name: "Peaceful Office",
-      description: "Release work stress in tranquil surroundings",
+      name: "Corporate Crusher",
+      description: "Office equipment begging to be smashed",
       color: "bg-office-room",
       icon: "💼"
     },
     {
       id: "kitchen" as const,
-      name: "Warm Kitchen",
-      description: "Break dishes in a soothing space",
+      name: "Dish Destroyer",
+      description: "Plates and glasses waiting to shatter",
       color: "bg-kitchen-room",
       icon: "🍽️"
     },
     {
       id: "test" as const,
-      name: "Level test",
-      description: "An empty space for testing",
+      name: "Empty Void",
+      description: "Nothing but pure emptiness",
       color: "bg-secondary",
       icon: "🧪"
     }
@@ -59,10 +59,10 @@ export const RageRoomGame = () => {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12 animate-float-in">
                 <h1 className="text-6xl font-bold text-foreground mb-4 bg-gradient-calm bg-clip-text text-transparent">
-                  Rage Room
+                  RAGE ROOM
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                  Find peace through therapeutic destruction. Choose your sanctuary and let the stress melt away.
+                  Unleash your stress through controlled destruction. Choose your arena and smash away the tension.
                 </p>
               </div>
 
@@ -70,11 +70,11 @@ export const RageRoomGame = () => {
                 {rooms.map((room) => (
                   <Card
                     key={room.id}
-                    className={`${room.color} p-8 hover:shadow-glow transition-all duration-500 cursor-pointer group animate-float-in border-2 hover:border-primary/30`}
+                    className={`${room.color} p-8 hover:shadow-glow transition-all duration-500 cursor-pointer group animate-float-in border-2 hover:border-primary/50`}
                     onClick={() => setCurrentRoom(room.id)}
                   >
                     <div className="text-center">
-                      <div className="text-6xl mb-6 group-hover:animate-gentle-pulse">
+                      <div className="text-6xl mb-6 group-hover:animate-explosive-pulse">
                         {room.icon}
                       </div>
                       <h2 className="text-2xl font-semibold text-foreground mb-3">
@@ -85,9 +85,9 @@ export const RageRoomGame = () => {
                       </p>
                       <Button 
                         variant="outline" 
-                        className="group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
+                        className="group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 border-primary/30"
                       >
-                        Enter Room
+                        SMASH NOW
                       </Button>
                     </div>
                   </Card>
@@ -96,7 +96,7 @@ export const RageRoomGame = () => {
 
               <div className="text-center text-muted-foreground">
                 <p className="text-sm">
-                  Click on objects to experience satisfying, stress-relieving interactions
+                  Click on objects to unleash satisfying destruction and release your rage
                 </p>
               </div>
             </div>

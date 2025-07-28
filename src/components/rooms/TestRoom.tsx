@@ -20,9 +20,9 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
 
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Level test</h2>
+          <h2 className="text-4xl font-bold text-foreground mb-4">EMPTY VOID</h2>
           <p className="text-xl text-muted-foreground">
-            This is an empty testing space
+            Nothing to destroy here... yet
           </p>
         </div>
       </div>

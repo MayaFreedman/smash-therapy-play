@@ -127,24 +127,28 @@ export default {
 						opacity: '0'
 					}
 				},
-				'float-in': {
+				'impact': {
 					'0%': {
-						transform: 'translateY(20px) scale(0.95)',
-						opacity: '0'
+						transform: 'scale(1)',
+						opacity: '1'
+					},
+					'50%': {
+						transform: 'scale(1.15)',
+						opacity: '0.8'
 					},
 					'100%': {
-						transform: 'translateY(0) scale(1)',
-						opacity: '1'
+						transform: 'scale(0.2) rotate(25deg)',
+						opacity: '0'
 					}
 				},
-				'gentle-pulse': {
+				'explosive-pulse': {
 					'0%, 100%': {
 						transform: 'scale(1)',
 						opacity: '1'
 					},
 					'50%': {
-						transform: 'scale(1.02)',
-						opacity: '0.9'
+						transform: 'scale(1.05)',
+						opacity: '0.8'
 					}
 				}
 			},
@@ -154,7 +158,8 @@ export default {
 				'shatter': 'shatter 0.6s ease-out forwards',
 				'break-apart': 'break-apart 0.5s ease-out forwards',
 				'float-in': 'float-in 0.4s ease-out',
-				'gentle-pulse': 'gentle-pulse 3s ease-in-out infinite'
+				'impact': 'impact 0.7s ease-out forwards',
+				'explosive-pulse': 'explosive-pulse 2s ease-in-out infinite'
 			}
 		}
 	},
