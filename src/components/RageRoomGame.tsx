@@ -4,9 +4,10 @@ import { Card } from "@/components/ui/card";
 import { LivingRoom } from "./rooms/LivingRoom";
 import { OfficeRoom } from "./rooms/OfficeRoom";
 import { KitchenRoom } from "./rooms/KitchenRoom";
+import { TestRoom } from "./rooms/TestRoom";
 import { Home, ArrowLeft } from "lucide-react";
 
-type Room = "home" | "living" | "office" | "kitchen";
+type Room = "home" | "living" | "office" | "kitchen" | "test";
 
 export const RageRoomGame = () => {
   const [currentRoom, setCurrentRoom] = useState<Room>("home");
@@ -32,6 +33,13 @@ export const RageRoomGame = () => {
       description: "Break dishes in a soothing space",
       color: "bg-kitchen-room",
       icon: "🍽️"
+    },
+    {
+      id: "test" as const,
+      name: "Level test",
+      description: "An empty space for testing",
+      color: "bg-secondary",
+      icon: "🧪"
     }
   ];
 
@@ -43,6 +51,8 @@ export const RageRoomGame = () => {
         return <OfficeRoom onBack={() => setCurrentRoom("home")} />;
       case "kitchen":
         return <KitchenRoom onBack={() => setCurrentRoom("home")} />;
+      case "test":
+        return <TestRoom onBack={() => setCurrentRoom("home")} />;
       default:
         return (
           <div className="min-h-screen bg-gradient-room p-6">
