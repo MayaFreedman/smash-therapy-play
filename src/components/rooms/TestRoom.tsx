@@ -21,6 +21,19 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-foreground mb-4">EMPTY VOID</h2>
+          
+          {/* Media container - Add your GIF/video files here */}
+          <div className="my-8 flex justify-center">
+            {/* 
+            Example usage:
+            <img src="/path/to/your-animation.gif" alt="Animation" className="max-w-md" />
+            or
+            <video autoPlay loop muted className="max-w-md">
+              <source src="/path/to/your-video.mp4" type="video/mp4" />
+            </video>
+            */}
+          </div>
+          
           <p className="text-xl text-muted-foreground">
             Nothing to destroy here... yet
           </p>
