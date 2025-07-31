@@ -16,7 +16,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
   const handleObjectBreak = (id: string) => {
     setAnimationStates(prev => ({ ...prev, [id]: true }));
     
-    // Play full sound effect on final break
+    // Play specific sound effect based on object type
     let soundFile = '/break-sound.mp3'; // default
     
     if (id.includes('tv')) {
@@ -28,30 +28,6 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
     const audio = new Audio(soundFile);
     audio.play().catch(() => {
       // Ignore audio play errors
-    });
-  };
-
-  const handleFirstCrunch = (id: string) => {
-    // Play only first 0.240 seconds of sound on first crunch
-    let soundFile = '/break-sound.mp3'; // default
-    
-    if (id.includes('tv')) {
-      soundFile = '/sounds/tv-shatter.wav';
-    } else if (id.includes('vase')) {
-      soundFile = '/sounds/vase-smash.mp3';
-    }
-    
-    const audio = new Audio(soundFile);
-    audio.addEventListener('loadedmetadata', () => {
-      audio.play().catch(() => {
-        // Ignore audio play errors
-      });
-      
-      // Stop audio after 0.240 seconds
-      setTimeout(() => {
-        audio.pause();
-        audio.currentTime = 0;
-      }, 240);
     });
   };
 
@@ -86,7 +62,6 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               spriteConfig={spriteAnimations.vase}
               name="Test Vase"
               onBreak={() => handleObjectBreak("test-vase")}
-              onFirstCrunch={() => handleFirstCrunch("test-vase")}
             />
             
             <InteractiveObject
@@ -95,7 +70,6 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               spriteConfig={spriteAnimations.lamp}
               name="Test Lamp"
               onBreak={() => handleObjectBreak("test-lamp")}
-              onFirstCrunch={() => handleFirstCrunch("test-lamp")}
             />
             
             <InteractiveObject
@@ -104,7 +78,6 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               spriteConfig={spriteAnimations.chair}
               name="Test Chair"
               onBreak={() => handleObjectBreak("test-chair")}
-              onFirstCrunch={() => handleFirstCrunch("test-chair")}
             />
             
             <InteractiveObject
@@ -113,7 +86,6 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               spriteConfig={spriteAnimations.tv}
               name="Test TV"
               onBreak={() => handleObjectBreak("test-tv")}
-              onFirstCrunch={() => handleFirstCrunch("test-tv")}
             />
           </div>
 
