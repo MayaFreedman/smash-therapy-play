@@ -61,7 +61,7 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
           setAnimationState(prev => ({
             ...prev,
             isPlaying: false,
-            currentFrame: endFrame
+            currentFrame: config.frameCount // Always end at the final frame
           }));
           return;
         }
