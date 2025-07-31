@@ -16,8 +16,16 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
   const handleObjectBreak = (id: string) => {
     setAnimationStates(prev => ({ ...prev, [id]: true }));
     
-    // Play breaking sound effect
-    const audio = new Audio('/break-sound.mp3');
+    // Play specific sound effect based on object type
+    let soundFile = '/break-sound.mp3'; // default
+    
+    if (id.includes('tv')) {
+      soundFile = '/sounds/tv-shatter.mp3';
+    } else if (id.includes('vase')) {
+      soundFile = '/sounds/vase-smash.mp3';
+    }
+    
+    const audio = new Audio(soundFile);
     audio.play().catch(() => {
       // Ignore audio play errors
     });
