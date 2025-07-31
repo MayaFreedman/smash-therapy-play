@@ -79,7 +79,7 @@ export const InteractiveObject = ({
           "relative cursor-pointer transition-all duration-300 flex items-center justify-center",
           !isBroken && !isBreaking && "hover:scale-105",
           isBreaking && "animate-shatter",
-          isBroken && "opacity-30 cursor-not-allowed"
+          isBroken && "cursor-not-allowed"
         )}
         style={{
           width: spriteConfig?.dimensions.width || 96,
@@ -97,8 +97,7 @@ export const InteractiveObject = ({
             alt={name}
             className={cn(
               "transition-all duration-300 object-contain",
-              !isBroken && !isPlaying && "group-hover:scale-110",
-              isBroken && "opacity-80"
+              !isBroken && !isPlaying && "group-hover:scale-110"
             )}
             style={{
               width: spriteConfig.dimensions.width,
@@ -172,8 +171,7 @@ export const InteractiveObject = ({
       
       <p className={cn(
         "mt-3 text-sm text-center text-muted-foreground transition-all duration-300",
-        !isBroken && "group-hover:text-foreground group-hover:font-medium",
-        isBroken && "opacity-50"
+        !isBroken && "group-hover:text-foreground group-hover:font-medium"
       )}>
         {isBroken ? "Broken" : name}
       </p>
