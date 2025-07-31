@@ -79,7 +79,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
     frameCount: 17,
     duration: 1000,
     spriteFolder: "TV",
-    dimensions: { width: 200, height: 150 },
+    dimensions: { width: 300, height: 225 },
     breakStages: {
       clicksToBreak: 2,
       frames: [8] // Click 1 → frame 8, Click 2 → animate from frame 8 to 17
