@@ -71,6 +71,14 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               name="Test Chair"
               onBreak={() => handleObjectBreak("test-chair")}
             />
+            
+            <InteractiveObject
+              key={`test-tv-${resetKey}`}
+              id="test-tv"
+              spriteConfig={spriteAnimations.tv}
+              name="Test TV"
+              onBreak={() => handleObjectBreak("test-tv")}
+            />
           </div>
 
           {/* Reset Button - Fixed height container to prevent layout shift */}
