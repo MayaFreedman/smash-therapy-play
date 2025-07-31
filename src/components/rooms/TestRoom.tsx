@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Volume2 } from "lucide-react";
 import { InteractiveObject } from "@/components/InteractiveObject";
 import { DebugSlider } from "@/components/DebugSlider";
+import { Slider } from "@/components/ui/slider";
 import { spriteAnimations } from "@/config/sprite-animations";
 import { useState, useRef } from "react";
 
@@ -12,6 +13,7 @@ interface TestRoomProps {
 export const TestRoom = ({ onBack }: TestRoomProps) => {
   const [animationStates, setAnimationStates] = useState<Record<string, boolean>>({});
   const [resetKey, setResetKey] = useState(0); // Force re-render to reset animations
+  const [volume, setVolume] = useState([0.5]); // Volume from 0 to 1
 
   const handleObjectBreak = (id: string) => {
     setAnimationStates(prev => ({ ...prev, [id]: true }));
@@ -27,6 +29,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
     
     console.log('Playing sound:', soundFile, 'for object:', id);
     const audio = new Audio(soundFile);
+    audio.volume = volume[0]; // Set volume from slider
     audio.play().catch((error) => {
       console.error('Audio play failed:', error);
     });
@@ -102,6 +105,24 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
             ) : null}
           </div>
           
+          {/* Volume Control */}
+          <div className="mb-8 flex items-center justify-center gap-4 max-w-xs mx-auto">
+            <Volume2 className="w-5 h-5 text-muted-foreground" />
+            <div className="flex-1">
+              <Slider
+                value={volume}
+                onValueChange={setVolume}
+                max={1}
+                min={0}
+                step={0.1}
+                className="w-full"
+              />
+            </div>
+            <span className="text-sm text-muted-foreground min-w-[3ch]">
+              {Math.round(volume[0] * 100)}%
+            </span>
+          </div>
+
           {/* Debug Slider */}
           <div className="my-8 flex justify-center">
             <DebugSlider spriteConfig={spriteAnimations.tv} />
