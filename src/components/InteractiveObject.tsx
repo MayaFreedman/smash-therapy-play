@@ -12,6 +12,7 @@ interface InteractiveObjectProps {
   // Legacy crack system for backwards compatibility
   crackLevel?: number;
   onBreak: () => void;
+  onFirstCrunch?: () => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -23,6 +24,7 @@ export const InteractiveObject = ({
   name,
   crackLevel = 0,
   onBreak,
+  onFirstCrunch,
   className,
   style
 }: InteractiveObjectProps) => {
@@ -41,8 +43,18 @@ export const InteractiveObject = ({
     
     if (multiStageAnimation?.canAdvance) {
       // Multi-stage animation for all sprite objects
+      const wasFirstClick = multiStageAnimation.animationState.clickCount === 0;
+      const willBeLastClick = multiStageAnimation.animationState.clickCount + 1 >= spriteConfig.breakStages.clicksToBreak;
+      
       multiStageAnimation.handleClick();
-      onBreak();
+      
+      if (wasFirstClick && onFirstCrunch) {
+        onFirstCrunch();
+      } 
+      
+      if (willBeLastClick) {
+        onBreak();
+      }
     } else if (!spriteConfig) {
       // Fallback to legacy system
       setIsBreaking(true);
