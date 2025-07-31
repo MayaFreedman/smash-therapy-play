@@ -25,9 +25,10 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
       soundFile = '/sounds/vase-shatter.wav';
     }
     
+    console.log('Playing sound:', soundFile, 'for object:', id);
     const audio = new Audio(soundFile);
-    audio.play().catch(() => {
-      // Ignore audio play errors
+    audio.play().catch((error) => {
+      console.error('Audio play failed:', error);
     });
   };
 
