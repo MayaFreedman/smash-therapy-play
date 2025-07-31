@@ -88,8 +88,11 @@ export const InteractiveObject = ({
               minHeight: spriteConfig.dimensions.height
             }}
           />
-        ) : (
-          // Fallback emoji rendering
+        ) : spriteConfig && !multiStageAnimation?.isLoaded ? (
+          // Loading spinner for sprite objects
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        ) : emoji ? (
+          // Fallback emoji rendering (only if emoji is provided)
           <span 
             className={cn(
               "text-4xl transition-all duration-300",
@@ -98,9 +101,9 @@ export const InteractiveObject = ({
               isCracked && "opacity-80"
             )}
           >
-            {isBroken ? "💥" : (emoji || "📦")}
+            {isBroken ? "💥" : emoji}
           </span>
-        )}
+        ) : null}
         
         {/* Crack overlay effects */}
         {isCracked && (
