@@ -4,7 +4,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
   vase: {
     id: "vase",
     name: "Decorative Vase",
-    frameCount: 41,
+    frameCount: 40,
     duration: 1000,
     spriteFolder: "vase",
     dimensions: { width: 300, height: 300 },
