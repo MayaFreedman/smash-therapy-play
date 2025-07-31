@@ -78,7 +78,6 @@ export const InteractiveObject = ({
         className={cn(
           "relative cursor-pointer transition-all duration-300 flex items-center justify-center",
           !isBroken && !isBreaking && "hover:scale-105",
-          isBreaking && "animate-shatter",
           isBroken && "cursor-not-allowed"
         )}
         style={{
@@ -95,10 +94,7 @@ export const InteractiveObject = ({
                 : spriteAnimation?.getCurrentSprite()?.src || `/assets/sprites/${spriteConfig.spriteFolder}/0.png`
             }
             alt={name}
-            className={cn(
-              "transition-all duration-300 object-contain",
-              !isBroken && !isPlaying && "group-hover:scale-110"
-            )}
+            className="transition-all duration-300 object-contain"
             style={{
               width: spriteConfig.dimensions.width,
               height: spriteConfig.dimensions.height,
@@ -141,32 +137,6 @@ export const InteractiveObject = ({
           </>
         )}
         
-        {/* Enhanced particle effects */}
-        {isPlaying && (
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {/* Central explosion particles */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-destructive rounded-full animate-ping opacity-80" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-destructive/60 rounded-full animate-ping" style={{animationDelay: '0.1s'}} />
-            
-            {/* Corner particles */}
-            <div className="absolute top-2 left-2 w-3 h-3 bg-accent rounded-full animate-ping" style={{animationDelay: '0.05s'}} />
-            <div className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full animate-ping" style={{animationDelay: '0.15s'}} />
-            <div className="absolute bottom-2 left-2 w-2 h-2 bg-secondary rounded-full animate-ping" style={{animationDelay: '0.25s'}} />
-            <div className="absolute bottom-2 right-2 w-3 h-3 bg-therapeutic-sunset rounded-full animate-ping" style={{animationDelay: '0.35s'}} />
-            
-            {/* Side particles */}
-            <div className="absolute top-4 left-1 w-2 h-2 bg-therapeutic-lavender rounded-full animate-ping" style={{animationDelay: '0.2s'}} />
-            <div className="absolute top-4 right-1 w-2 h-2 bg-therapeutic-mint rounded-full animate-ping" style={{animationDelay: '0.3s'}} />
-            <div className="absolute top-1 left-4 w-2 h-2 bg-therapeutic-rose rounded-full animate-ping" style={{animationDelay: '0.4s'}} />
-            <div className="absolute bottom-1 left-4 w-2 h-2 bg-therapeutic-sage rounded-full animate-ping" style={{animationDelay: '0.1s'}} />
-            
-            {/* Floating debris particles */}
-            <div className="absolute top-3 left-3 w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{animationDelay: '0.3s'}} />
-            <div className="absolute top-5 right-3 w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{animationDelay: '0.4s'}} />
-            <div className="absolute bottom-5 left-3 w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{animationDelay: '0.5s'}} />
-            <div className="absolute bottom-3 right-3 w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{animationDelay: '0.2s'}} />
-          </div>
-        )}
       </div>
       
       <p className={cn(
