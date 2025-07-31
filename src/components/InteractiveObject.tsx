@@ -102,7 +102,11 @@ export const InteractiveObject = ({
             )}
             style={{
               width: spriteConfig.dimensions.width,
-              height: spriteConfig.dimensions.height
+              height: spriteConfig.dimensions.height,
+              maxWidth: spriteConfig.dimensions.width,
+              maxHeight: spriteConfig.dimensions.height,
+              minWidth: spriteConfig.dimensions.width,
+              minHeight: spriteConfig.dimensions.height
             }}
           />
         ) : (
