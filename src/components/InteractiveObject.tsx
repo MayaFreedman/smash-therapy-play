@@ -76,11 +76,15 @@ export const InteractiveObject = ({
       <div
         onClick={handleClick}
         className={cn(
-          "relative w-24 h-24 cursor-pointer transition-all duration-300 flex items-center justify-center",
+          "relative cursor-pointer transition-all duration-300 flex items-center justify-center",
           !isBroken && !isBreaking && "hover:scale-105",
           isBreaking && "animate-shatter",
           isBroken && "opacity-30 cursor-not-allowed"
         )}
+        style={{
+          width: spriteConfig?.dimensions.width || 96,
+          height: spriteConfig?.dimensions.height || 96
+        }}
       >
         {spriteConfig && ((isVase && multiStageAnimation?.isLoaded) || (!isVase && spriteAnimation?.isLoaded)) ? (
           // Sprite-based rendering
