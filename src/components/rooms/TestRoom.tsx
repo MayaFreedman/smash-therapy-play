@@ -25,7 +25,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
     setAnimationStates({});
   };
   return (
-    <div className="min-h-screen bg-gradient-room p-6 relative">
+    <div className="min-h-screen bg-white p-6 relative">
       <Button
         variant="outline"
         size="sm"
