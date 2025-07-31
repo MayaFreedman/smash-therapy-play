@@ -22,7 +22,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
     if (id.includes('tv')) {
       soundFile = '/sounds/tv-shatter.wav';
     } else if (id.includes('vase')) {
-      soundFile = '/sounds/vase-smash.mp3';
+      soundFile = '/sounds/vase-shatter.wav';
     }
     
     const audio = new Audio(soundFile);
