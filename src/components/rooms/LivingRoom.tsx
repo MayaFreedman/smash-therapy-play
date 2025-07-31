@@ -53,7 +53,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="🛏️"
               name="Soft Pillow"
               crackLevel={objectCracks["pillow"] || 0}
-              onCrack={() => handleObjectCrack("pillow")}
+              onBreak={() => handleObjectCrack("pillow")}
               className="animate-float-in"
             />
 
@@ -63,7 +63,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="⏰"
               name="Alarm Clock"
               crackLevel={objectCracks["alarm"] || 0}
-              onCrack={() => handleObjectCrack("alarm")}
+              onBreak={() => handleObjectCrack("alarm")}
               className="animate-float-in"
               style={{animationDelay: '0.1s'}}
             />
@@ -74,7 +74,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="🛋️"
               name="Bedside Lamp"
               crackLevel={objectCracks["bedlamp"] || 0}
-              onCrack={() => handleObjectCrack("bedlamp")}
+              onBreak={() => handleObjectCrack("bedlamp")}
               className="animate-float-in"
               style={{animationDelay: '0.2s'}}
             />
@@ -85,7 +85,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="🪞"
               name="Dresser Mirror"
               crackLevel={objectCracks["dresser"] || 0}
-              onCrack={() => handleObjectCrack("dresser")}
+              onBreak={() => handleObjectCrack("dresser")}
               className="animate-float-in"
               style={{animationDelay: '0.3s'}}
             />
@@ -96,7 +96,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="💎"
               name="Jewelry Box"
               crackLevel={objectCracks["jewelry"] || 0}
-              onCrack={() => handleObjectCrack("jewelry")}
+              onBreak={() => handleObjectCrack("jewelry")}
               className="animate-float-in"
               style={{animationDelay: '0.4s'}}
             />
@@ -107,7 +107,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="🥛"
               name="Water Glass"
               crackLevel={objectCracks["water"] || 0}
-              onCrack={() => handleObjectCrack("water")}
+              onBreak={() => handleObjectCrack("water")}
               className="animate-float-in"
               style={{animationDelay: '0.5s'}}
             />
@@ -118,7 +118,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="🖼️"
               name="Family Photo"
               crackLevel={objectCracks["photo"] || 0}
-              onCrack={() => handleObjectCrack("photo")}
+              onBreak={() => handleObjectCrack("photo")}
               className="animate-float-in"
               style={{animationDelay: '0.6s'}}
             />
@@ -129,7 +129,7 @@ export const LivingRoom = ({ onBack }: LivingRoomProps) => {
               emoji="🧴"
               name="Perfume Bottle"
               crackLevel={objectCracks["perfume"] || 0}
-              onCrack={() => handleObjectCrack("perfume")}
+              onBreak={() => handleObjectCrack("perfume")}
               className="animate-float-in"
               style={{animationDelay: '0.7s'}}
             />

@@ -1,40 +1,57 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { SpriteAnimation } from "@/types/sprite-animation";
+import { useSpriteAnimation } from "@/hooks/useSpriteAnimation";
 
 interface InteractiveObjectProps {
   id: string;
-  emoji: string;
+  spriteConfig?: SpriteAnimation;
+  // Fallback to emoji system if no sprite config
+  emoji?: string;
   name: string;
-  crackLevel: number; // 0 = intact, 1-2 = cracked, 3 = broken
-  onCrack: () => void;
+  // Legacy crack system for backwards compatibility
+  crackLevel?: number;
+  onBreak: () => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export const InteractiveObject = ({
   id,
+  spriteConfig,
   emoji,
   name,
-  crackLevel,
-  onCrack,
+  crackLevel = 0,
+  onBreak,
   className,
   style
 }: InteractiveObjectProps) => {
   const [isBreaking, setIsBreaking] = useState(false);
   
-  const isBroken = crackLevel >= 3;
-  const isCracked = crackLevel > 0 && crackLevel < 3;
+  // Use sprite animation if config is provided
+  const spriteAnimation = spriteConfig ? useSpriteAnimation(spriteConfig) : null;
+  
+  // Determine state - prioritize sprite animation over legacy crack system
+  const isBroken = spriteAnimation ? spriteAnimation.animationState.isComplete : crackLevel >= 3;
+  const isCracked = spriteAnimation ? false : (crackLevel > 0 && crackLevel < 3);
+  const isPlaying = spriteAnimation?.animationState.isPlaying || isBreaking;
 
   const handleClick = () => {
-    if (isBroken || isBreaking) return;
+    if (isBroken || isPlaying) return;
     
-    setIsBreaking(true);
-    onCrack();
-    
-    // Reset breaking state after animation
-    setTimeout(() => {
-      setIsBreaking(false);
-    }, 600);
+    if (spriteAnimation && !spriteAnimation.animationState.isComplete) {
+      // Use sprite animation
+      spriteAnimation.playAnimation();
+      onBreak();
+    } else if (!spriteConfig) {
+      // Fallback to legacy system
+      setIsBreaking(true);
+      onBreak();
+      
+      setTimeout(() => {
+        setIsBreaking(false);
+      }, 600);
+    }
   };
 
   return (
@@ -51,16 +68,34 @@ export const InteractiveObject = ({
           isBroken && "opacity-30 cursor-not-allowed"
         )}
       >
-        <span 
-          className={cn(
-            "text-4xl transition-all duration-300",
-            isBreaking && "animate-break-apart",
-            !isBroken && !isBreaking && "group-hover:scale-110",
-            isCracked && "opacity-80"
-          )}
-        >
-          {isBroken ? "💥" : emoji}
-        </span>
+        {spriteConfig && spriteAnimation?.isLoaded ? (
+          // Sprite-based rendering
+          <img
+            src={spriteAnimation.getCurrentSprite()?.src || `/assets/sprites/${spriteConfig.spriteFolder}/intact.png`}
+            alt={name}
+            className={cn(
+              "transition-all duration-300 object-contain",
+              !isBroken && !isPlaying && "group-hover:scale-110",
+              isBroken && "opacity-80"
+            )}
+            style={{
+              width: spriteConfig.dimensions.width,
+              height: spriteConfig.dimensions.height
+            }}
+          />
+        ) : (
+          // Fallback emoji rendering
+          <span 
+            className={cn(
+              "text-4xl transition-all duration-300",
+              isBreaking && "animate-break-apart",
+              !isBroken && !isBreaking && "group-hover:scale-110",
+              isCracked && "opacity-80"
+            )}
+          >
+            {isBroken ? "💥" : (emoji || "📦")}
+          </span>
+        )}
         
         {/* Crack overlay effects */}
         {isCracked && (
@@ -82,7 +117,7 @@ export const InteractiveObject = ({
         )}
         
         {/* Enhanced particle effects */}
-        {isBreaking && (
+        {isPlaying && (
           <>
             {/* Central explosion particles */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-destructive rounded-full animate-ping opacity-80" />
@@ -117,7 +152,7 @@ export const InteractiveObject = ({
         {isBroken ? "Broken" : name}
       </p>
       
-      {!isBroken && !isBreaking && (
+      {!isBroken && !isPlaying && (
         <div className="mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="text-xs text-primary font-medium">Click to break</span>
         </div>

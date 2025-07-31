@@ -53,7 +53,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="🖥️"
               name="Computer Monitor"
               crackLevel={objectCracks["monitor"] || 0}
-              onCrack={() => handleObjectCrack("monitor")}
+              onBreak={() => handleObjectCrack("monitor")}
               className="animate-float-in"
             />
 
@@ -63,7 +63,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="☕"
               name="Coffee Mug"
               crackLevel={objectCracks["mug"] || 0}
-              onCrack={() => handleObjectCrack("mug")}
+              onBreak={() => handleObjectCrack("mug")}
               className="animate-float-in"
               style={{animationDelay: '0.1s'}}
             />
@@ -74,7 +74,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="🔦"
               name="Desk Lamp"
               crackLevel={objectCracks["desk-lamp"] || 0}
-              onCrack={() => handleObjectCrack("desk-lamp")}
+              onBreak={() => handleObjectCrack("desk-lamp")}
               className="animate-float-in"
               style={{animationDelay: '0.2s'}}
             />
@@ -85,7 +85,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="📱"
               name="Smartphone"
               crackLevel={objectCracks["phone"] || 0}
-              onCrack={() => handleObjectCrack("phone")}
+              onBreak={() => handleObjectCrack("phone")}
               className="animate-float-in"
               style={{animationDelay: '0.3s'}}
             />
@@ -96,7 +96,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="🏆"
               name="Achievement Trophy"
               crackLevel={objectCracks["trophy"] || 0}
-              onCrack={() => handleObjectCrack("trophy")}
+              onBreak={() => handleObjectCrack("trophy")}
               className="animate-float-in"
               style={{animationDelay: '0.4s'}}
             />
@@ -107,7 +107,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="🧮"
               name="Calculator"
               crackLevel={objectCracks["calculator"] || 0}
-              onCrack={() => handleObjectCrack("calculator")}
+              onBreak={() => handleObjectCrack("calculator")}
               className="animate-float-in"
               style={{animationDelay: '0.5s'}}
             />
@@ -118,7 +118,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="🖨️"
               name="Office Printer"
               crackLevel={objectCracks["printer"] || 0}
-              onCrack={() => handleObjectCrack("printer")}
+              onBreak={() => handleObjectCrack("printer")}
               className="animate-float-in"
               style={{animationDelay: '0.6s'}}
             />
@@ -129,7 +129,7 @@ export const OfficeRoom = ({ onBack }: OfficeRoomProps) => {
               emoji="⚾"
               name="Stress Ball"
               crackLevel={objectCracks["stress-ball"] || 0}
-              onCrack={() => handleObjectCrack("stress-ball")}
+              onBreak={() => handleObjectCrack("stress-ball")}
               className="animate-float-in"
               style={{animationDelay: '0.7s'}}
             />

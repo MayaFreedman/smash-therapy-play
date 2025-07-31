@@ -53,7 +53,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🍽️"
               name="Dinner Plate"
               crackLevel={objectCracks["plate"] || 0}
-              onCrack={() => handleObjectCrack("plate")}
+              onBreak={() => handleObjectCrack("plate")}
               className="animate-float-in"
             />
 
@@ -63,7 +63,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🫖"
               name="Tea Cup"
               crackLevel={objectCracks["teacup"] || 0}
-              onCrack={() => handleObjectCrack("teacup")}
+              onBreak={() => handleObjectCrack("teacup")}
               className="animate-float-in"
               style={{animationDelay: '0.1s'}}
             />
@@ -74,7 +74,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🥣"
               name="Glass Bowl"
               crackLevel={objectCracks["bowl"] || 0}
-              onCrack={() => handleObjectCrack("bowl")}
+              onBreak={() => handleObjectCrack("bowl")}
               className="animate-float-in"
               style={{animationDelay: '0.2s'}}
             />
@@ -85,7 +85,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🍾"
               name="Wine Bottle"
               crackLevel={objectCracks["bottle"] || 0}
-              onCrack={() => handleObjectCrack("bottle")}
+              onBreak={() => handleObjectCrack("bottle")}
               className="animate-float-in"
               style={{animationDelay: '0.3s'}}
             />
@@ -96,7 +96,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🍪"
               name="Cookie Jar"
               crackLevel={objectCracks["jar"] || 0}
-              onCrack={() => handleObjectCrack("jar")}
+              onBreak={() => handleObjectCrack("jar")}
               className="animate-float-in"
               style={{animationDelay: '0.4s'}}
             />
@@ -107,7 +107,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🥤"
               name="Glass Blender"
               crackLevel={objectCracks["blender"] || 0}
-              onCrack={() => handleObjectCrack("blender")}
+              onBreak={() => handleObjectCrack("blender")}
               className="animate-float-in"
               style={{animationDelay: '0.5s'}}
             />
@@ -118,7 +118,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🧂"
               name="Salt Shaker"
               crackLevel={objectCracks["salt"] || 0}
-              onCrack={() => handleObjectCrack("salt")}
+              onBreak={() => handleObjectCrack("salt")}
               className="animate-float-in"
               style={{animationDelay: '0.6s'}}
             />
@@ -129,7 +129,7 @@ export const KitchenRoom = ({ onBack }: KitchenRoomProps) => {
               emoji="🍕"
               name="Wooden Board"
               crackLevel={objectCracks["cutting-board"] || 0}
-              onCrack={() => handleObjectCrack("cutting-board")}
+              onBreak={() => handleObjectCrack("cutting-board")}
               className="animate-float-in"
               style={{animationDelay: '0.7s'}}
             />
