@@ -8,6 +8,10 @@ export interface SpriteAnimation {
     width: number;
     height: number;
   };
+  breakStages: {
+    clicksToBreak: number;
+    frames: number[]; // Frame to jump to for each click (except final click which plays animation)
+  };
 }
 
 export interface SpriteAnimationState {

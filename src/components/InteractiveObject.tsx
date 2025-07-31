@@ -51,7 +51,7 @@ export const InteractiveObject = ({
     
     if (isVase && multiStageAnimation?.canAdvance) {
       // Multi-stage animation for vase
-      multiStageAnimation.playNextStage();
+      multiStageAnimation.handleClick();
       onBreak();
     } else if (spriteAnimation && !spriteAnimation.animationState.isComplete) {
       // Regular sprite animation for other objects

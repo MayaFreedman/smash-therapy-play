@@ -5,7 +5,7 @@ import { preloadSprites } from "@/utils/sprite-loader";
 interface MultiStageAnimationState {
   isPlaying: boolean;
   currentFrame: number;
-  stage: number; // 0 = intact, 1 = first crack, 2 = second crack, 3 = fully broken
+  clickCount: number;
   isLoaded: boolean;
 }
 
@@ -14,12 +14,11 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
   const [animationState, setAnimationState] = useState<MultiStageAnimationState>({
     isPlaying: false,
     currentFrame: 0,
-    stage: 0,
+    clickCount: 0,
     isLoaded: false
   });
   
   const animationRef = useRef<number>();
-  const timeoutRef = useRef<NodeJS.Timeout>();
 
   // Preload sprites on mount
   useEffect(() => {
@@ -36,82 +35,62 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
     loadSprites();
   }, [config.spriteFolder, config.frameCount, config.id]);
 
-  const playNextStage = useCallback(() => {
-    if (animationState.isPlaying || animationState.stage >= 3 || !animationState.isLoaded) {
+  const handleClick = useCallback(() => {
+    if (animationState.isPlaying || animationState.clickCount >= config.breakStages.clicksToBreak || !animationState.isLoaded) {
       return;
     }
 
-    const nextStage = animationState.stage + 1;
-    let startFrame: number;
-    let endFrame: number;
-    let stageDuration: number;
-    
-    // Define frame ranges and durations for each stage
-    switch (nextStage) {
-      case 1: // First crack: frames 1-5
-        startFrame = 1;
-        endFrame = 5;
-        stageDuration = 300; // 300ms for first crack
-        break;
-      case 2: // Second crack: frames 6-10
-        startFrame = 6;
-        endFrame = 10;
-        stageDuration = 300; // 300ms for second crack
-        break;
-      case 3: // Final break: frames 11-40
-        startFrame = 11;
-        endFrame = config.frameCount;
-        stageDuration = 800; // 800ms for final destruction
-        break;
-      default:
-        return;
-    }
+    const nextClickCount = animationState.clickCount + 1;
+    const isLastClick = nextClickCount === config.breakStages.clicksToBreak;
 
-    setAnimationState(prev => ({ 
-      ...prev, 
-      isPlaying: true, 
-      stage: nextStage,
-      currentFrame: startFrame 
-    }));
-    
-    const frameCount = endFrame - startFrame + 1;
-    const frameRate = 60; // 60 FPS for smooth animation
-    const frameInterval = 1000 / frameRate; // ~16.67ms per frame
-    const startTime = performance.now();
+    if (isLastClick) {
+      // Final click - play animation from current frame to end
+      const startFrame = animationState.currentFrame;
+      const endFrame = config.frameCount;
+      
+      setAnimationState(prev => ({ ...prev, isPlaying: true, clickCount: nextClickCount }));
+      
+      const startTime = performance.now();
+      
+      const animateFrame = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / config.duration, 1);
+        const currentFrameIndex = startFrame + Math.floor(progress * (endFrame - startFrame));
 
-    const animateFrame = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / stageDuration, 1);
-      const currentFrameIndex = startFrame + Math.floor(progress * (frameCount - 1));
+        if (progress >= 1) {
+          setAnimationState(prev => ({
+            ...prev,
+            isPlaying: false,
+            currentFrame: endFrame
+          }));
+          return;
+        }
 
-      if (progress >= 1) {
-        setAnimationState(prev => ({
-          ...prev,
-          isPlaying: false,
-          currentFrame: endFrame
-        }));
-        return;
-      }
+        setAnimationState(prev => ({ ...prev, currentFrame: currentFrameIndex }));
+        animationRef.current = requestAnimationFrame(animateFrame);
+      };
 
-      setAnimationState(prev => ({ ...prev, currentFrame: currentFrameIndex }));
       animationRef.current = requestAnimationFrame(animateFrame);
-    };
-
-    animationRef.current = requestAnimationFrame(animateFrame);
-  }, [animationState.isPlaying, animationState.stage, animationState.isLoaded, config.frameCount]);
+    } else {
+      // Non-final click - jump to specific frame instantly
+      const targetFrame = config.breakStages.frames[nextClickCount - 1];
+      setAnimationState(prev => ({
+        ...prev,
+        currentFrame: targetFrame,
+        clickCount: nextClickCount
+      }));
+    }
+  }, [animationState.isPlaying, animationState.clickCount, animationState.currentFrame, animationState.isLoaded, config]);
 
   const resetAnimation = useCallback(() => {
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
     
     setAnimationState({
       isPlaying: false,
       currentFrame: 0,
-      stage: 0,
+      clickCount: 0,
       isLoaded: true
     });
   }, []);
@@ -127,19 +106,16 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
     };
   }, []);
 
   return {
-    playNextStage,
+    handleClick,
     resetAnimation,
     getCurrentSprite,
     animationState,
     isLoaded: animationState.isLoaded,
-    canAdvance: animationState.stage < 3 && !animationState.isPlaying,
-    isFullyBroken: animationState.stage >= 3
+    canAdvance: animationState.clickCount < config.breakStages.clicksToBreak && !animationState.isPlaying,
+    isFullyBroken: animationState.clickCount >= config.breakStages.clicksToBreak
   };
 };
