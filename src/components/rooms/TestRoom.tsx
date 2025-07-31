@@ -95,7 +95,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
           
           {/* Debug Slider */}
           <div className="my-8 flex justify-center">
-            <DebugSlider spriteConfig={spriteAnimations.vase} />
+            <DebugSlider spriteConfig={spriteAnimations.tv} />
           </div>
         </div>
       </div>
