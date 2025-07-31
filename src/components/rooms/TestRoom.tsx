@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { InteractiveObject } from "@/components/InteractiveObject";
-import { DebugSlider } from "@/components/DebugSlider";
 import { spriteAnimations } from "@/config/sprite-animations";
 import { useState, useRef } from "react";
 
@@ -83,15 +82,6 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
                 Reset Test Room
               </Button>
             ) : null}
-          </div>
-
-          {/* Debug Slider */}
-          <div className="mt-8 border-t pt-8">
-            <h3 className="text-lg font-semibold text-foreground mb-4">Frame-by-Frame Debug</h3>
-            <DebugSlider 
-              spriteConfig={spriteAnimations.vase}
-              onFrameChange={(frame) => console.log(`Current frame: ${frame}`)}
-            />
           </div>
           
           {/* Fallback Media container for GIF/video files */}
