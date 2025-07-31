@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { InteractiveObject } from "@/components/InteractiveObject";
+import { DebugSlider } from "@/components/DebugSlider";
 import { spriteAnimations } from "@/config/sprite-animations";
 import { useState, useRef } from "react";
 
@@ -84,16 +85,9 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
             ) : null}
           </div>
           
-          {/* Fallback Media container for GIF/video files */}
+          {/* Debug Slider */}
           <div className="my-8 flex justify-center">
-            {/* 
-            Example usage:
-            <img src="/path/to/your-animation.gif" alt="Animation" className="max-w-md" />
-            or
-            <video autoPlay loop muted className="max-w-md">
-              <source src="/path/to/your-video.mp4" type="video/mp4" />
-            </video>
-            */}
+            <DebugSlider spriteConfig={spriteAnimations.vase} />
           </div>
         </div>
       </div>
