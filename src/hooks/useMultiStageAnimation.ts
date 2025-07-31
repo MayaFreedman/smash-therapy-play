@@ -42,15 +42,11 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
 
     const nextClickCount = animationState.clickCount + 1;
     const isLastClick = nextClickCount === config.breakStages.clicksToBreak;
-    
-    console.log(`TV Click ${nextClickCount}, isLastClick: ${isLastClick}, currentFrame: ${animationState.currentFrame}`);
 
     if (isLastClick) {
       // Final click - play animation from current frame to end
       const startFrame = animationState.currentFrame;
       const endFrame = config.frameCount - 1; // frameCount is total frames, so -1 for index
-      
-      console.log(`Starting final animation from frame ${startFrame} to ${endFrame}`);
       
       setAnimationState(prev => ({ ...prev, isPlaying: true, clickCount: nextClickCount }));
       
@@ -78,7 +74,6 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
     } else {
       // Non-final click - jump to specific frame instantly
       const targetFrame = config.breakStages.frames[nextClickCount - 1];
-      console.log(`Jumping to frame ${targetFrame} for click ${nextClickCount}`);
       setAnimationState(prev => ({
         ...prev,
         currentFrame: targetFrame,
