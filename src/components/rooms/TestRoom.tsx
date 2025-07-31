@@ -28,7 +28,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
     setResetKey(prev => prev + 1); // Force component re-render to reset animations
   };
   return (
-    <div className="min-h-screen bg-white p-6 relative">
+    <div className="min-h-screen bg-slate-100 p-6 relative">
       <Button
         variant="outline"
         size="sm"
