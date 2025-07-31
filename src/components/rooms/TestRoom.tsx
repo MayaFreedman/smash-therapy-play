@@ -72,16 +72,17 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
             />
           </div>
 
-          {/* Reset Button */}
-          {Object.keys(animationStates).length > 0 && (
-            <Button 
-              onClick={resetRoom}
-              variant="outline"
-              className="mt-4"
-            >
-              Reset Test Room
-            </Button>
-          )}
+          {/* Reset Button - Fixed height container to prevent layout shift */}
+          <div className="mt-4 h-10 flex justify-center items-center">
+            {Object.keys(animationStates).length > 0 ? (
+              <Button 
+                onClick={resetRoom}
+                variant="outline"
+              >
+                Reset Test Room
+              </Button>
+            ) : null}
+          </div>
           
           {/* Fallback Media container for GIF/video files */}
           <div className="my-8 flex justify-center">
