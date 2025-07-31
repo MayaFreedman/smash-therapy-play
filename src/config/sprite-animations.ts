@@ -4,13 +4,13 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
   vase: {
     id: "vase",
     name: "Decorative Vase",
-    frameCount: 40,
+    frameCount: 37,
     duration: 1000,
     spriteFolder: "vase",
     dimensions: { width: 300, height: 300 },
     breakStages: {
       clicksToBreak: 3,
-      frames: [1, 4] // Click 1 → frame 1, Click 2 → frame 4, Click 3 → animate from frame 4 to 40
+      frames: [1, 4] // Click 1 → frame 1, Click 2 → frame 4, Click 3 → animate from frame 4 to 37
     }
   },
   lamp: {
