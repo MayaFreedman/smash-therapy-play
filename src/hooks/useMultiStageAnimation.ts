@@ -55,18 +55,18 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
       const animateFrame = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / config.duration, 1);
-        const currentFrameIndex = startFrame + Math.floor(progress * (endFrame - startFrame));
+        const targetFrameIndex = startFrame + Math.floor(progress * (sprites.length - 1 - startFrame));
 
         if (progress >= 1) {
           setAnimationState(prev => ({
             ...prev,
             isPlaying: false,
-            currentFrame: config.frameCount // Always end at the final frame
+            currentFrame: sprites.length - 1 // Use actual sprite array length
           }));
           return;
         }
 
-        setAnimationState(prev => ({ ...prev, currentFrame: currentFrameIndex }));
+        setAnimationState(prev => ({ ...prev, currentFrame: targetFrameIndex }));
         animationRef.current = requestAnimationFrame(animateFrame);
       };
 

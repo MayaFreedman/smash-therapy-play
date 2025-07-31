@@ -13,11 +13,18 @@ export const DebugSlider = ({ spriteConfig }: DebugSliderProps) => {
   const [sprites, setSprites] = useState<string[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Frames to exclude from debug
+  const excludedFrames = [22, 36, 38];
+
   useEffect(() => {
     const loadSprites = async () => {
       try {
         const spriteFrames = await preloadSprites(spriteConfig.spriteFolder, spriteConfig.frameCount);
-        setSprites(spriteFrames.map(frame => frame.src));
+        const allSprites = spriteFrames.map(frame => frame.src);
+        
+        // Filter out excluded frames
+        const filteredSprites = allSprites.filter((_, index) => !excludedFrames.includes(index));
+        setSprites(filteredSprites);
         setIsLoaded(true);
       } catch (error) {
         console.error('Failed to load sprites:', error);
@@ -27,21 +34,37 @@ export const DebugSlider = ({ spriteConfig }: DebugSliderProps) => {
     loadSprites();
   }, [spriteConfig]);
 
+  // Create mapping from slider index to actual frame number
+  const getActualFrameNumber = (sliderIndex: number) => {
+    let actualFrame = 0;
+    let validFrameCount = 0;
+    
+    while (validFrameCount <= sliderIndex && actualFrame <= spriteConfig.frameCount) {
+      if (!excludedFrames.includes(actualFrame)) {
+        if (validFrameCount === sliderIndex) break;
+        validFrameCount++;
+      }
+      actualFrame++;
+    }
+    return actualFrame;
+  };
+
   const currentSprite = sprites[currentFrame[0]] || sprites[0];
   const maxFrame = sprites.length - 1;
+  const actualFrameNumber = getActualFrameNumber(currentFrame[0]);
 
   return (
-    <Card className="p-6 bg-card border-border">
+    <Card className="p-6 bg-slate-900 border-slate-700">
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-foreground">
+        <h3 className="text-lg font-semibold text-slate-100">
           Debug: {spriteConfig.name}
         </h3>
         
-        <div className="flex justify-center">
+        <div className="flex justify-center bg-white rounded-lg p-4">
           {isLoaded && currentSprite ? (
             <img
               src={currentSprite}
-              alt={`Frame ${currentFrame[0]}`}
+              alt={`Frame ${actualFrameNumber}`}
               style={{
                 width: spriteConfig.dimensions.width,
                 height: spriteConfig.dimensions.height,
@@ -50,7 +73,7 @@ export const DebugSlider = ({ spriteConfig }: DebugSliderProps) => {
             />
           ) : (
             <div 
-              className="bg-muted animate-pulse rounded"
+              className="bg-slate-300 animate-pulse rounded"
               style={{
                 width: spriteConfig.dimensions.width,
                 height: spriteConfig.dimensions.height,
@@ -60,8 +83,8 @@ export const DebugSlider = ({ spriteConfig }: DebugSliderProps) => {
         </div>
 
         <div className="space-y-2">
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Frame: {currentFrame[0]}</span>
+          <div className="flex justify-between text-sm text-slate-300">
+            <span>Frame: {actualFrameNumber} (excluded: 22, 36, 38)</span>
             <span>Max: {maxFrame}</span>
           </div>
           

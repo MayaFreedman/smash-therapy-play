@@ -15,18 +15,25 @@ export const preloadSprites = async (
 ): Promise<SpriteFrame[]> => {
   const sprites: SpriteFrame[] = [];
   
-  // Add unbroken state (0.png)
-  sprites.push({
-    src: `/assets/sprites/${spriteFolder}/0.png`,
-    loaded: false
-  });
+  // Frames to exclude for vase animations (problematic frames)
+  const excludedFrames = spriteFolder === 'vase' ? [22, 36, 38] : [];
   
-  // Add animation frames (1.png to frameCount.png)
-  for (let i = 1; i <= frameCount; i++) {
+  // Add unbroken state (0.png)
+  if (!excludedFrames.includes(0)) {
     sprites.push({
-      src: `/assets/sprites/${spriteFolder}/${i}.png`,
+      src: `/assets/sprites/${spriteFolder}/0.png`,
       loaded: false
     });
+  }
+  
+  // Add animation frames (1.png to frameCount.png), excluding problematic ones
+  for (let i = 1; i <= frameCount; i++) {
+    if (!excludedFrames.includes(i)) {
+      sprites.push({
+        src: `/assets/sprites/${spriteFolder}/${i}.png`,
+        loaded: false
+      });
+    }
   }
   
   // Preload all frames
