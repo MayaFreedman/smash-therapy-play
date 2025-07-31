@@ -15,17 +15,16 @@ export const preloadSprites = async (
 ): Promise<SpriteFrame[]> => {
   const sprites: SpriteFrame[] = [];
   
-  // Add intact state
+  // Add unbroken state (0.png)
   sprites.push({
-    src: `/assets/sprites/${spriteFolder}/intact.png`,
+    src: `/assets/sprites/${spriteFolder}/0.png`,
     loaded: false
   });
   
-  // Add animation frames
+  // Add animation frames (1.png to frameCount.png)
   for (let i = 1; i <= frameCount; i++) {
-    const frameNumber = i.toString().padStart(3, '0');
     sprites.push({
-      src: `/assets/sprites/${spriteFolder}/frame-${frameNumber}.png`,
+      src: `/assets/sprites/${spriteFolder}/${i}.png`,
       loaded: false
     });
   }
