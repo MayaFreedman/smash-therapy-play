@@ -2,6 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { SpriteAnimation } from "@/types/sprite-animation";
 import { useSpriteAnimation } from "@/hooks/useSpriteAnimation";
+import { useMultiStageAnimation } from "@/hooks/useMultiStageAnimation";
 
 interface InteractiveObjectProps {
   id: string;
@@ -28,19 +29,32 @@ export const InteractiveObject = ({
 }: InteractiveObjectProps) => {
   const [isBreaking, setIsBreaking] = useState(false);
   
-  // Use sprite animation if config is provided
-  const spriteAnimation = spriteConfig ? useSpriteAnimation(spriteConfig) : null;
+  // Use multi-stage animation for vase, regular animation for others
+  const isVase = spriteConfig?.id === "vase";
+  const spriteAnimation = spriteConfig && !isVase ? useSpriteAnimation(spriteConfig) : null;
+  const multiStageAnimation = spriteConfig && isVase ? useMultiStageAnimation(spriteConfig) : null;
   
-  // Determine state - prioritize sprite animation over legacy crack system
-  const isBroken = spriteAnimation ? spriteAnimation.animationState.isComplete : crackLevel >= 3;
+  // Determine state based on animation type
+  const isBroken = isVase 
+    ? multiStageAnimation?.isFullyBroken 
+    : spriteAnimation 
+      ? spriteAnimation.animationState.isComplete 
+      : crackLevel >= 3;
+  
   const isCracked = spriteAnimation ? false : (crackLevel > 0 && crackLevel < 3);
-  const isPlaying = spriteAnimation?.animationState.isPlaying || isBreaking;
+  const isPlaying = isVase 
+    ? multiStageAnimation?.animationState.isPlaying 
+    : spriteAnimation?.animationState.isPlaying || isBreaking;
 
   const handleClick = () => {
     if (isBroken || isPlaying) return;
     
-    if (spriteAnimation && !spriteAnimation.animationState.isComplete) {
-      // Use sprite animation
+    if (isVase && multiStageAnimation?.canAdvance) {
+      // Multi-stage animation for vase
+      multiStageAnimation.playNextStage();
+      onBreak();
+    } else if (spriteAnimation && !spriteAnimation.animationState.isComplete) {
+      // Regular sprite animation for other objects
       spriteAnimation.playAnimation();
       onBreak();
     } else if (!spriteConfig) {
@@ -68,10 +82,14 @@ export const InteractiveObject = ({
           isBroken && "opacity-30 cursor-not-allowed"
         )}
       >
-        {spriteConfig && spriteAnimation?.isLoaded ? (
+        {spriteConfig && ((isVase && multiStageAnimation?.isLoaded) || (!isVase && spriteAnimation?.isLoaded)) ? (
           // Sprite-based rendering
           <img
-            src={spriteAnimation.getCurrentSprite()?.src || `/assets/sprites/${spriteConfig.spriteFolder}/intact.png`}
+            src={
+              isVase 
+                ? multiStageAnimation?.getCurrentSprite()?.src || `/assets/sprites/${spriteConfig.spriteFolder}/0.png`
+                : spriteAnimation?.getCurrentSprite()?.src || `/assets/sprites/${spriteConfig.spriteFolder}/0.png`
+            }
             alt={name}
             className={cn(
               "transition-all duration-300 object-contain",

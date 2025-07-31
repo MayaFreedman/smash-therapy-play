@@ -7,7 +7,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
     frameCount: 40,
     duration: 1000,
     spriteFolder: "vase",
-    dimensions: { width: 200, height: 200 }
+    dimensions: { width: 300, height: 300 }
   },
   lamp: {
     id: "lamp",

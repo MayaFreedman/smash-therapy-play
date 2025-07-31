@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { InteractiveObject } from "@/components/InteractiveObject";
 import { spriteAnimations } from "@/config/sprite-animations";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 interface TestRoomProps {
   onBack: () => void;
@@ -10,6 +10,7 @@ interface TestRoomProps {
 
 export const TestRoom = ({ onBack }: TestRoomProps) => {
   const [animationStates, setAnimationStates] = useState<Record<string, boolean>>({});
+  const [resetKey, setResetKey] = useState(0); // Force re-render to reset animations
 
   const handleObjectBreak = (id: string) => {
     setAnimationStates(prev => ({ ...prev, [id]: true }));
@@ -23,6 +24,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
 
   const resetRoom = () => {
     setAnimationStates({});
+    setResetKey(prev => prev + 1); // Force component re-render to reset animations
   };
   return (
     <div className="min-h-screen bg-white p-6 relative">
@@ -46,6 +48,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
           {/* Test Objects Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8">
             <InteractiveObject
+              key={`test-vase-${resetKey}`}
               id="test-vase"
               spriteConfig={spriteAnimations.vase}
               name="Test Vase"
@@ -53,6 +56,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
             />
             
             <InteractiveObject
+              key={`test-lamp-${resetKey}`}
               id="test-lamp"
               spriteConfig={spriteAnimations.lamp}
               name="Test Lamp"
@@ -60,6 +64,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
             />
             
             <InteractiveObject
+              key={`test-chair-${resetKey}`}
               id="test-chair"
               spriteConfig={spriteAnimations.chair}
               name="Test Chair"
