@@ -58,6 +58,7 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
         const targetFrameIndex = startFrame + Math.floor(progress * (endFrame - startFrame));
 
         if (progress >= 1) {
+          console.log(`Animation complete for ${config.id}, setting frame to ${endFrame}`);
           setAnimationState(prev => ({
             ...prev,
             isPlaying: false,
