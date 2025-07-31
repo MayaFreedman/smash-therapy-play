@@ -44,20 +44,24 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
     const nextStage = animationState.stage + 1;
     let startFrame: number;
     let endFrame: number;
+    let stageDuration: number;
     
-    // Define frame ranges for each stage
+    // Define frame ranges and durations for each stage
     switch (nextStage) {
       case 1: // First crack: frames 1-5
         startFrame = 1;
         endFrame = 5;
+        stageDuration = 300; // 300ms for first crack
         break;
       case 2: // Second crack: frames 6-10
         startFrame = 6;
         endFrame = 10;
+        stageDuration = 300; // 300ms for second crack
         break;
       case 3: // Final break: frames 11-40
         startFrame = 11;
         endFrame = config.frameCount;
+        stageDuration = 800; // 800ms for final destruction
         break;
       default:
         return;
@@ -71,11 +75,16 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
     }));
     
     const frameCount = endFrame - startFrame + 1;
-    const frameInterval = config.duration / frameCount;
-    let frameIndex = startFrame;
+    const frameRate = 60; // 60 FPS for smooth animation
+    const frameInterval = 1000 / frameRate; // ~16.67ms per frame
+    const startTime = performance.now();
 
-    const animateFrame = () => {
-      if (frameIndex > endFrame) {
+    const animateFrame = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / stageDuration, 1);
+      const currentFrameIndex = startFrame + Math.floor(progress * (frameCount - 1));
+
+      if (progress >= 1) {
         setAnimationState(prev => ({
           ...prev,
           isPlaying: false,
@@ -84,16 +93,12 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
         return;
       }
 
-      setAnimationState(prev => ({ ...prev, currentFrame: frameIndex }));
-      frameIndex++;
-      
-      timeoutRef.current = setTimeout(() => {
-        animationRef.current = requestAnimationFrame(animateFrame);
-      }, frameInterval);
+      setAnimationState(prev => ({ ...prev, currentFrame: currentFrameIndex }));
+      animationRef.current = requestAnimationFrame(animateFrame);
     };
 
     animationRef.current = requestAnimationFrame(animateFrame);
-  }, [animationState.isPlaying, animationState.stage, animationState.isLoaded, config.duration, config.frameCount]);
+  }, [animationState.isPlaying, animationState.stage, animationState.isLoaded, config.frameCount]);
 
   const resetAnimation = useCallback(() => {
     if (animationRef.current) {
