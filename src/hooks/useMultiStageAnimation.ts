@@ -46,7 +46,7 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
     if (isLastClick) {
       // Final click - play animation from current frame to end
       const startFrame = animationState.currentFrame;
-      const endFrame = config.frameCount - 1; // frameCount is total frames, so -1 for index
+      const endFrame = config.frameCount - 1; // Last valid frame index
       
       setAnimationState(prev => ({ ...prev, isPlaying: true, clickCount: nextClickCount }));
       
@@ -98,7 +98,9 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
 
   const getCurrentSprite = useCallback(() => {
     if (!sprites.length) return null;
-    return sprites[animationState.currentFrame] || sprites[0];
+    // Clamp frame to valid range instead of falling back to frame 0
+    const clampedFrame = Math.min(Math.max(animationState.currentFrame, 0), sprites.length - 1);
+    return sprites[clampedFrame];
   }, [sprites, animationState.currentFrame]);
 
   // Cleanup on unmount
