@@ -24,12 +24,11 @@ export const SpriteLoadingScreen = ({ onLoadingComplete, children }: SpriteLoadi
   });
 
   useEffect(() => {
-    // Check if already loaded (from browser cache or previous session)
-    if (isCacheInitialized()) {
-      setLoadingState(prev => ({ ...prev, isLoading: false }));
-      onLoadingComplete();
-      return;
-    }
+    // Always skip loading screen for now since we only have 2 sprite sets
+    // and they load quickly enough
+    setLoadingState(prev => ({ ...prev, isLoading: false }));
+    onLoadingComplete();
+    return;
 
     // Check localStorage to see if we've loaded before
     const hasLoadedBefore = localStorage.getItem('sprites-loaded') === 'true';
