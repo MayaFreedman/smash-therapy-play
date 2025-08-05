@@ -6,12 +6,12 @@ import { OfficeRoom } from "./rooms/OfficeRoom";
 import { KitchenRoom } from "./rooms/KitchenRoom";
 import { TestRoom } from "./rooms/TestRoom";
 import { Home, ArrowLeft } from "lucide-react";
-import { SpriteProvider, useSpriteCache } from "@/contexts/SpriteContext";
+import { useSpriteCache } from "@/contexts/SpriteContext";
 import { SpriteLoadingScreen } from "@/components/SpriteLoadingScreen";
 
 type Room = "home" | "living" | "office" | "kitchen" | "test";
 
-const RageRoomGameContent = () => {
+export const RageRoomGame = () => {
   const [currentRoom, setCurrentRoom] = useState<Room>("home");
   const { isLoading, progress, error, isLoaded } = useSpriteCache();
 
@@ -128,13 +128,5 @@ const RageRoomGameContent = () => {
       )}
       {renderRoom()}
     </div>
-  );
-};
-
-export const RageRoomGame = () => {
-  return (
-    <SpriteProvider>
-      <RageRoomGameContent />
-    </SpriteProvider>
   );
 };
