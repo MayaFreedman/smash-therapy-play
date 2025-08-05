@@ -24,49 +24,10 @@ export const SpriteLoadingScreen = ({ onLoadingComplete, children }: SpriteLoadi
   });
 
   useEffect(() => {
-    // Always skip loading screen for now since we only have 2 sprite sets
-    // and they load quickly enough
+    // Global sprite loading is now disabled in favor of room-specific loading
+    // This component now just passes through to children immediately
     setLoadingState(prev => ({ ...prev, isLoading: false }));
     onLoadingComplete();
-    return;
-
-    // Check localStorage to see if we've loaded before
-    const hasLoadedBefore = localStorage.getItem('sprites-loaded') === 'true';
-    if (hasLoadedBefore) {
-      // Skip loading screen for returning users
-      setLoadingState(prev => ({ ...prev, isLoading: false }));
-      onLoadingComplete();
-      return;
-    }
-
-    // Start preloading
-    const startPreloading = async () => {
-      try {
-        await preloadAllSprites((progress) => {
-          setLoadingState(prev => ({
-            ...prev,
-            progress: progress.progress,
-            currentSprite: progress.currentSprite
-          }));
-        });
-
-        // Mark as loaded in localStorage
-        localStorage.setItem('sprites-loaded', 'true');
-        
-        setLoadingState(prev => ({ ...prev, isLoading: false }));
-        onLoadingComplete();
-      } catch (error) {
-        console.error("Failed to preload sprites:", error);
-        setLoadingState(prev => ({
-          ...prev,
-          error: "Failed to load game assets. You can continue, but some animations may load slowly.",
-          isLoading: false
-        }));
-        onLoadingComplete();
-      }
-    };
-
-    startPreloading();
   }, [onLoadingComplete]);
 
   if (!loadingState.isLoading) {
