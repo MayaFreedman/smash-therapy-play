@@ -5,12 +5,14 @@ import { LivingRoom } from "./rooms/LivingRoom";
 import { OfficeRoom } from "./rooms/OfficeRoom";
 import { KitchenRoom } from "./rooms/KitchenRoom";
 import { TestRoom } from "./rooms/TestRoom";
+import { SpriteLoadingScreen } from "./SpriteLoadingScreen";
 import { Home, ArrowLeft } from "lucide-react";
 
 type Room = "home" | "living" | "office" | "kitchen" | "test";
 
 export const RageRoomGame = () => {
   const [currentRoom, setCurrentRoom] = useState<Room>("home");
+  const [spritesLoaded, setSpritesLoaded] = useState(false);
 
   const rooms = [
     {
@@ -106,19 +108,21 @@ export const RageRoomGame = () => {
   };
 
   return (
-    <div className="relative">
-      {currentRoom !== "home" && (
-        <Button
-          variant="outline"
-          size="sm"
-          className="fixed top-6 left-6 z-50 bg-card/80 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground"
-          onClick={() => setCurrentRoom("home")}
-        >
-          <Home className="w-4 h-4 mr-2" />
-          Home
-        </Button>
-      )}
-      {renderRoom()}
-    </div>
+    <SpriteLoadingScreen onLoadingComplete={() => setSpritesLoaded(true)}>
+      <div className="relative">
+        {currentRoom !== "home" && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="fixed top-6 left-6 z-50 bg-card/80 backdrop-blur-sm hover:bg-primary hover:text-primary-foreground"
+            onClick={() => setCurrentRoom("home")}
+          >
+            <Home className="w-4 h-4 mr-2" />
+            Home
+          </Button>
+        )}
+        {renderRoom()}
+      </div>
+    </SpriteLoadingScreen>
   );
 };
