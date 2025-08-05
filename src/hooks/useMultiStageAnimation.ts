@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { SpriteAnimation, SpriteFrame } from "@/types/sprite-animation";
-import { spriteCache } from "@/utils/sprite-cache";
+import { preloadSprites } from "@/utils/sprite-loader";
 
 interface MultiStageAnimationState {
   isPlaying: boolean;
@@ -20,12 +20,20 @@ export const useMultiStageAnimation = (config: SpriteAnimation) => {
   
   const animationRef = useRef<number>();
 
-  // Get sprites from cache instead of loading them
+  // Preload sprites on mount
   useEffect(() => {
-    const cachedSprites = spriteCache.getSpritesForAnimation(config.spriteFolder, config.frameCount);
-    setSprites(cachedSprites);
-    setAnimationState(prev => ({ ...prev, isLoaded: true }));
-  }, [config.spriteFolder, config.frameCount]);
+    const loadSprites = async () => {
+      try {
+        const loadedSprites = await preloadSprites(config.spriteFolder, config.frameCount);
+        setSprites(loadedSprites);
+        setAnimationState(prev => ({ ...prev, isLoaded: true }));
+      } catch (error) {
+        console.error(`Failed to load sprites for ${config.id}:`, error);
+      }
+    };
+
+    loadSprites();
+  }, [config.spriteFolder, config.frameCount, config.id]);
 
   const handleClick = useCallback(() => {
     if (animationState.isPlaying || animationState.clickCount >= config.breakStages.clicksToBreak || !animationState.isLoaded) {

@@ -6,14 +6,11 @@ import { OfficeRoom } from "./rooms/OfficeRoom";
 import { KitchenRoom } from "./rooms/KitchenRoom";
 import { TestRoom } from "./rooms/TestRoom";
 import { Home, ArrowLeft } from "lucide-react";
-import { useSpriteCache } from "@/contexts/SpriteContext";
-import { SpriteLoadingScreen } from "@/components/SpriteLoadingScreen";
 
 type Room = "home" | "living" | "office" | "kitchen" | "test";
 
 export const RageRoomGame = () => {
   const [currentRoom, setCurrentRoom] = useState<Room>("home");
-  const { isLoading, progress, error, isLoaded } = useSpriteCache();
 
   const rooms = [
     {
@@ -107,11 +104,6 @@ export const RageRoomGame = () => {
         );
     }
   };
-
-  // Show loading screen while sprites are loading
-  if (isLoading || !isLoaded) {
-    return <SpriteLoadingScreen progress={progress} error={error} />;
-  }
 
   return (
     <div className="relative">
