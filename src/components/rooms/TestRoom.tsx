@@ -101,7 +101,11 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
                     key={weapon.id}
                     variant={selectedWeapon === weapon.id ? "default" : "outline"}
                     className="flex flex-col items-center gap-2 h-auto p-4"
-                    onClick={() => setSelectedWeapon(weapon.id)}
+                    onClick={() => {
+                      console.log('Selecting weapon:', weapon.id);
+                      console.log('Cursor URL:', weapon.cursor);
+                      setSelectedWeapon(weapon.id);
+                    }}
                   >
                     <img 
                       src={weapon.image} 
@@ -119,8 +123,13 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8"
               style={{
                 cursor: selectedWeapon 
-                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.cursor}) 8 8, auto`
+                  ? `url("${weapons.find(w => w.id === selectedWeapon)?.cursor}") 8 8, auto`
                   : 'default'
+              }}
+              onMouseEnter={() => {
+                if (selectedWeapon) {
+                  console.log('Mouse enter - cursor should be:', weapons.find(w => w.id === selectedWeapon)?.cursor);
+                }
               }}
             >
               <InteractiveObject
