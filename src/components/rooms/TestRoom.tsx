@@ -6,15 +6,27 @@ import { Slider } from "@/components/ui/slider";
 import { spriteAnimations } from "@/config/sprite-animations";
 import { RoomLoadingScreen } from "@/components/RoomLoadingScreen";
 import { useState, useRef } from "react";
+import sledgehammerImg from "@/assets/weapons/sledgehammer.png";
+import baseballBatImg from "@/assets/weapons/baseball-bat.png";
+import crowbarImg from "@/assets/weapons/crowbar.png";
 
 interface TestRoomProps {
   onBack: () => void;
 }
 
+type Weapon = 'sledgehammer' | 'baseball-bat' | 'crowbar' | null;
+
 export const TestRoom = ({ onBack }: TestRoomProps) => {
   const [animationStates, setAnimationStates] = useState<Record<string, boolean>>({});
   const [resetKey, setResetKey] = useState(0); // Force re-render to reset animations
   const [volume, setVolume] = useState([0.5]); // Volume from 0 to 1
+  const [selectedWeapon, setSelectedWeapon] = useState<Weapon>(null);
+
+  const weapons = [
+    { id: 'sledgehammer' as const, name: 'Sledgehammer', image: sledgehammerImg },
+    { id: 'baseball-bat' as const, name: 'Baseball Bat', image: baseballBatImg },
+    { id: 'crowbar' as const, name: 'Crowbar', image: crowbarImg }
+  ];
 
   // Define sprites that need preloading for this room
   const spritesToPreload = [
@@ -77,8 +89,37 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               Test sprite-based breaking animations
             </p>
             
+            {/* Weapon Selection */}
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold text-foreground mb-4">Choose Your Weapon</h3>
+              <div className="flex justify-center gap-4">
+                {weapons.map((weapon) => (
+                  <Button
+                    key={weapon.id}
+                    variant={selectedWeapon === weapon.id ? "default" : "outline"}
+                    className="flex flex-col items-center gap-2 h-auto p-4"
+                    onClick={() => setSelectedWeapon(weapon.id)}
+                  >
+                    <img 
+                      src={weapon.image} 
+                      alt={weapon.name}
+                      className="w-12 h-12 object-contain"
+                    />
+                    <span className="text-xs">{weapon.name}</span>
+                  </Button>
+                ))}
+              </div>
+            </div>
+            
             {/* Test Objects Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8">
+            <div 
+              className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8"
+              style={{
+                cursor: selectedWeapon 
+                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.image}), auto`
+                  : 'default'
+              }}
+            >
               <InteractiveObject
                 key={`test-vase-${resetKey}`}
                 id="test-vase"
