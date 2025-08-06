@@ -83,7 +83,14 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
         </Button>
 
         <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
+          <div 
+            className="text-center"
+            style={{
+              cursor: selectedWeapon 
+                ? `url(${weapons.find(w => w.id === selectedWeapon)?.image}) 32 32, auto`
+                : 'default'
+            }}
+          >
             <h2 className="text-4xl font-bold text-foreground mb-6">TEST ROOM</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Test sprite-based breaking animations
@@ -112,14 +119,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
             </div>
             
             {/* Test Objects Grid */}
-            <div 
-              className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8"
-              style={{
-                cursor: selectedWeapon 
-                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.image}), auto`
-                  : 'default'
-              }}
-            >
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8">
               <InteractiveObject
                 key={`test-vase-${resetKey}`}
                 id="test-vase"
