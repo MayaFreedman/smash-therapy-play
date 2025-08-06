@@ -9,6 +9,9 @@ import { useState, useRef } from "react";
 import sledgehammerImg from "@/assets/weapons/sledgehammer.png";
 import baseballBatImg from "@/assets/weapons/baseball-bat.png";
 import crowbarImg from "@/assets/weapons/crowbar.png";
+import sledgehammerCursor from "@/assets/weapons/sledgehammer-cursor.png";
+import baseballBatCursor from "@/assets/weapons/baseball-bat-cursor.png";
+import crowbarCursor from "@/assets/weapons/crowbar-cursor.png";
 
 interface TestRoomProps {
   onBack: () => void;
@@ -23,9 +26,9 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
   const [selectedWeapon, setSelectedWeapon] = useState<Weapon>(null);
 
   const weapons = [
-    { id: 'sledgehammer' as const, name: 'Sledgehammer', image: sledgehammerImg },
-    { id: 'baseball-bat' as const, name: 'Baseball Bat', image: baseballBatImg },
-    { id: 'crowbar' as const, name: 'Crowbar', image: crowbarImg }
+    { id: 'sledgehammer' as const, name: 'Sledgehammer', image: sledgehammerImg, cursor: sledgehammerCursor },
+    { id: 'baseball-bat' as const, name: 'Baseball Bat', image: baseballBatImg, cursor: baseballBatCursor },
+    { id: 'crowbar' as const, name: 'Crowbar', image: crowbarImg, cursor: crowbarCursor }
   ];
 
   // Define sprites that need preloading for this room
@@ -116,7 +119,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8"
               style={{
                 cursor: selectedWeapon 
-                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.image}) 16 16, pointer`
+                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.cursor}) 16 16, pointer`
                   : 'default'
               }}
             >
