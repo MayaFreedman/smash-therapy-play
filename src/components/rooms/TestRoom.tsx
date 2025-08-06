@@ -119,16 +119,8 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8"
               style={{
                 cursor: selectedWeapon 
-                  ? `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><rect width='32' height='32' fill='${selectedWeapon === 'sledgehammer' ? '%23666' : selectedWeapon === 'crowbar' ? '%23444' : '%23a0522d'}'/></svg>") 16 16, pointer`
+                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.cursor}) 16 16, pointer`
                   : 'default'
-              }}
-              onMouseEnter={() => {
-                if (selectedWeapon) {
-                  const weapon = weapons.find(w => w.id === selectedWeapon);
-                  console.log('Selected weapon:', selectedWeapon);
-                  console.log('Cursor URL:', weapon?.cursor);
-                  console.log('Full cursor style being applied');
-                }
               }}
             >
               <InteractiveObject
