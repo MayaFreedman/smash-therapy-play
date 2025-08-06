@@ -116,7 +116,7 @@ export const TestRoom = ({ onBack }: TestRoomProps) => {
               className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-8"
               style={{
                 cursor: selectedWeapon 
-                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.image}), auto`
+                  ? `url(${weapons.find(w => w.id === selectedWeapon)?.image}) 16 16, pointer`
                   : 'default'
               }}
             >
